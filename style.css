@@ -27,7 +27,7 @@ body{
 }
 /* Header Section */
 .header{
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(120, 120, 120, 0.25);
     position: fixed;
     top: 0;
     left: 0;
@@ -37,6 +37,7 @@ body{
     justify-content: space-between;
     align-items: center;
     z-index: 1;
+    border: 1px solid #fff;
 }
 
 .logo{
@@ -248,13 +249,13 @@ span{
 
 .projects-items{
     display: grid;
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns: repeat(3,1fr);
     gap: 3rem;
 }
 
 .project-card {
     position: relative;
-    height: 25rem;
+    height: 30rem;
     width: 100%;
     border-radius: 10px;
     overflow: hidden;
@@ -267,7 +268,7 @@ span{
     object-position: center;
 }
 
-.card-overlay {
+/*.card-overlay {
     background: rgba(0, 0, 0, 0);
     position: absolute;
     left: 0;
@@ -280,28 +281,28 @@ span{
     flex-direction: column;
     cursor: pointer;
     transition: 0.4s all linear;
-}
+}*/
 
-.card-overlay:hover {
+/*.sing:hover {
     background: rgba(79, 76, 76, 0.8);
     color: #000;
-}
+}*/
 
-.card-overlay .bx {
+/*.card-overlay .bx {
     color: #000;
     font-size: 1.8rem;
     padding: 1.1rem;
     background: rgba(255, 255, 255, 0.8);
     border-radius: 0.8rem;
     transition: 1s all cubic-bezier(0.075, 0.82, 0.165, 1);
-}
+}*/
 
-.card-overlay .bx:hover {
+/*.card-overlay .bx:hover {
     transform: scale(1.2);
     color: #fff;
     background: rgba(0, 0, 0, 0.8);
     box-shadow: 0 0 2rem aqua;
-}
+}*/
 
 /* Contact Section */
 .contact{
@@ -425,6 +426,7 @@ hr{
 }
 
 .project-intro {
+    margin-top: 20px;
     font-size: 20px;
 }
 
@@ -452,7 +454,26 @@ hr{
     color: navy;
 }
 
-.project-desc {
-    font-size: 20px;
-    margin-top: 60px;
+.proj-title {
+    font-weight: bold;
+    margin-top: 25px;
+    font-size:20px;
+    margin-bottom: 10px;
 }
+
+.proj-desc {
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.single {
+    border: 25px solid transparent;
+    transition: border-color 0.3s ease;
+    border-radius: 10px;
+}
+
+.single:hover {
+    background-color: #11263e;
+}
+
+
