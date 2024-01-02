@@ -306,13 +306,29 @@ span{
 
 /* Contact Section */
 .contact{
+    margin-top: 100px;
+    margin-left: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
+/* Assuming your contact section has a class named 'contact' */
+.contact {
+    display: flex;
+    align-items: flex-start; /* Align items to the start (left) */
+    justify-content: flex-start; /* Justify content to the start (left) */
+    flex-direction: column;
+}
 
-form{
+.contact-image {
+    width: 600px; /* Set your preferred width */
+    height: auto; /* Maintain aspect ratio */
+    margin-left: 650px;
+    margin-top: -200px;
+}
+
+/*form{
     display: grid;
     row-gap: 1rem;
 }
@@ -326,7 +342,7 @@ textarea{
     background: rgba(0, 0, 0, 0.5);
     border-radius: 1rem;
     resize: none;
-}
+}*/
 
 /* Footer Section */
 
