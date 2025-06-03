@@ -1,6 +1,28 @@
 /* CSS Reset */
 /* Let's Import Google fonts */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* CSS Variables for Theme */
+:root {
+    --bg-color: #0B141E;
+    --text-color: #fff;
+    --header-bg: rgba(120, 120, 120, 0.25);
+    --accent-color: aqua;
+    --btn-bg: aqua;
+    --btn-text: #000;
+    --border-color: #fff;
+}
+
+[data-theme="light"] {
+    --bg-color: #f5f5f5;
+    --text-color: #333;
+    --header-bg: rgba(255, 255, 255, 0.9);
+    --accent-color: #007acc;
+    --btn-bg: #007acc;
+    --btn-text: #fff;
+    --border-color: #ddd;
+}
+
 *{
     font-family: 'Poppins', sans-serif;
     margin: 0;
@@ -13,7 +35,7 @@
 }
 
 a{
-    color: #fff;
+    color: var(--text-color);
 }
 
 html{
@@ -22,12 +44,13 @@ html{
 }
 
 body{
-    background: #0B141E;
-    color: #fff;
+    background: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 /* Header Section */
 .header{
-    background: rgba(120, 120, 120, 0.25);
+    background: var(--header-bg);
     position: fixed;
     top: 0;
     left: 0;
@@ -37,23 +60,60 @@ body{
     justify-content: space-between;
     align-items: center;
     z-index: 1;
-    border: 1px solid #fff;
+    border: 1px solid var(--border-color);
+    backdrop-filter: blur(10px);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .logo{
     font-size: 2.2rem;
     font-weight: 600;
-    color: white;
+    color: var(--text-color);
+}
+
+.menu-bar{
+    display: flex;
+    align-items: center;
+    gap: 3.5rem;
 }
 
 .menu-bar a{
     font-size: 1.5rem;
-    margin-left: 3.5rem;
     transition: 0.4s ease;
 }
 
 .menu-bar a:hover{
-    color: aqua;
+    color: var(--accent-color);
+}
+
+.theme-toggle{
+    background: transparent;
+    border: none;
+    font-size: 1.8rem;
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 0.8rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+    width: 4rem;
+    height: 4rem;
+    margin-left: 1rem;
+}
+
+.theme-toggle:hover{
+    color: var(--accent-color);
+    opacity: 1;
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.theme-toggle i {
+    transition: all 0.3s ease;
+    font-size: 1.8rem;
 }
 
 #menu-btn{
@@ -78,7 +138,7 @@ section{
 }
 
 span{
-    color: aqua;
+    color: var(--accent-color);
 }
 
 .home-bio h1{
@@ -123,26 +183,26 @@ span{
 }
 
 .social-media a:hover{
-    color: aqua;
-    box-shadow: 0 0 1rem aqua;
+    color: var(--accent-color);
+    box-shadow: 0 0 1rem var(--accent-color);
 }
 
 .btn{
     display: inline-block;
-    background: aqua;
+    background: var(--btn-bg);
     margin: 2rem 0;
     padding: 1rem 2.5rem;
     border-radius: 1.3rem;
     font-size: 1.3rem;
-    color: #000;
+    color: var(--btn-text);
     font-weight: 600;
     transition: 0.5s ease;
 }
 
 .btn:hover{
-    color: aqua;
-    background: #000;
-    box-shadow: 0 0 1rem aqua;
+    color: var(--accent-color);
+    background: var(--bg-color);
+    box-shadow: 0 0 1rem var(--accent-color);
 }
 
 .home {
@@ -225,7 +285,7 @@ span{
 }
 
 .skill-card .bx:hover{
-    color: aqua;
+    color: var(--accent-color);
 }
 
 .skill-card h3{
@@ -354,7 +414,7 @@ textarea{
 
 hr{
     margin: 1rem;
-    border-bottom: thin solid #fff;
+    border-bottom: thin solid var(--border-color);
 }
 
 /* Responsive Section */
@@ -382,16 +442,30 @@ hr{
         position: absolute;
         left: 0;
         top: 100%;
-        background: rgba(0, 0, 0, 0.9);
-        display: none;    
+        background: var(--header-bg);
+        backdrop-filter: blur(20px);
+        display: none;
+        flex-direction: column;
+        padding: 2rem 0;
     }
     .menu-bar.active{
-        display: block;
+        display: flex;
     }
     .menu-bar a{
         display: block;
-        margin: 2rem;
+        margin: 1rem 2rem;
         font-size: 2rem;
+    }
+    .theme-toggle{
+        margin: 1rem 2rem;
+        align-self: flex-start;
+        width: 3.5rem;
+        height: 3.5rem;
+        font-size: 1.6rem;
+    }
+    
+    .theme-toggle i {
+        font-size: 1.6rem;
     }
     .home, .about-items{
         flex-direction: column;
@@ -493,18 +567,35 @@ hr{
 }
 
 /*Photography Page*/
+.photos {
+    padding-top: 12rem; /* Extra padding to account for fixed header */
+}
+
 .photo-items {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px; /* Adjust the gap as needed */
+    gap: 20px;
     justify-content: space-between;
+    padding: 20px 0;
 }
 
 .photo-item {
     position: relative;
-    flex: 1 1 calc(33.333% - 10px); /* Three images per row with a gap */
-    max-width: calc(33.333% - 10px); /* Ensure the containers don't exceed their flex-basis */
+    flex: 1 1 calc(33.333% - 20px);
+    max-width: calc(33.333% - 20px);
     box-sizing: border-box;
+    transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
+    transform-origin: center center;
+    border-radius: 8px;
+    overflow: hidden;
+    will-change: transform; /* Optimize for animations */
+}
+
+/* Hover effect for the main image being hovered */
+.photo-item:hover {
+    transform: scale(1.05) translateY(-3px) !important;
+    z-index: 10;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 .collage-image {
@@ -513,35 +604,77 @@ hr{
     display: block;
 }
 
-/* Create the overlay effect */
-.photo-item::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-}
-
+/* Location label styling */
 .photoloc {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(255, 255, 255, 0.7); /* Transparent white */
-    color: black;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2));
+    color: white;
     text-align: center;
     opacity: 0;
-    transition: opacity 0.25s ease;
-    padding: 10px;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    padding: 12px;
     font-size: 16px;
     font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    transform: translateY(10px);
 }
 
 .photo-item:hover .photoloc {
     opacity: 1;
+    transform: translateY(0px);
+}
+
+/* Push away effects for better performance */
+.photo-item.push-left {
+    transform: translateX(-15px) scale(0.96) !important;
+}
+
+.photo-item.push-right {
+    transform: translateX(15px) scale(0.96) !important;
+}
+
+.photo-item.push-up {
+    transform: translateY(-10px) scale(0.96) !important;
+}
+
+.photo-item.push-down {
+    transform: translateY(10px) scale(0.96) !important;
+}
+
+/* Responsive design for mobile */
+@media (max-width: 768px) {
+    .photo-items {
+        gap: 15px;
+    }
+    
+    .photo-item {
+        flex: 1 1 calc(50% - 15px);
+        max-width: calc(50% - 15px);
+    }
+    
+    /* Simplified mobile interactions */
+    .photo-item:hover {
+        transform: scale(1.05);
+    }
+}
+
+@media (max-width: 480px) {
+    .photo-items {
+        gap: 10px;
+    }
+    
+    .photo-item {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+    
+    /* Minimal mobile hover effects */
+    .photo-item:hover {
+        transform: scale(1.02);
+    }
 }
 
