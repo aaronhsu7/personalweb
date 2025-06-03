@@ -4,11 +4,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Aaron's Projects - Explore my software development projects including RAG systems, AI chatbots, and web applications built with Python, JavaScript, and modern frameworks.">
+    <meta name="keywords" content="Aaron Hsu Projects, Software Development, RAG System, AI Chatbot, Web Development, Python, JavaScript, LangChain, Flask">
+    <meta name="author" content="Aaron Hsu">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Aaron Hsu's Projects - Software Development Portfolio">
+    <meta property="og:description" content="Explore my software development projects including RAG systems, AI chatbots, and web applications.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aaronhsu7.github.io/projects.html">
+    <meta property="og:image" content="images/langchain.jpg">
+    
     <!-- Link CSS File -->
     <link rel="stylesheet" href="style.css">
     <!-- Link Box Icons -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <title>Aaron Hsu</title>
+    <title>Projects - Aaron Hsu | Software Development Portfolio</title>
     <!-- Header Favicon -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
@@ -23,6 +37,9 @@
             <a href="photography.html">Photography</a>
             <a href="contact.html">Contact</a>
             <a href="resume.pdf" target="_blank" class="btn">Resume</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode">
+                <i class='bx bx-moon'></i>
+            </button>
         </nav>
     </header>
 
@@ -38,7 +55,7 @@
             <!--LangChain-->
             <div class="single">
                 <div class="project-card">
-                    <img src="images/langchain.jpg" alt="LangChain RAG">
+                    <img src="images/langchain.jpg" alt="RAG System Quality Assessment Project using LangChain Framework">
                     <div class="card-overlay"></div>
                 </div>
                 <p class="proj-title">RAG System Quality Assessment</p>
@@ -46,9 +63,9 @@
             </div>
             
             <!--VCAT9-->
-            <a href="https://github.com/aaronhsu7/chickenDinner/" target="_blank" class="single">
+            <a href="https://github.com/aaronhsu7/chickenDinner/" target="_blank" class="single" aria-label="View chickenDinner AI Cooking Assistant project on GitHub">
                 <div class="project-card">
-                    <img src="images/chickenDinner.jpeg" alt="chickenDinner logo">
+                    <img src="images/chickenDinner.jpeg" alt="chickenDinner AI Cooking Assistant Application">
                     <div class="card-overlay"></div>
                 </div>
                 <p class="proj-title">chickenDinner - AI Cooking Assistant</p>
@@ -56,9 +73,9 @@
             </a>
 
             <!-- Maize FC-->
-            <a href="https://www.maizefcclubsoccer.com/" target="_blank" class="single">
+            <a href="https://www.maizefcclubsoccer.com/" target="_blank" class="single" aria-label="Visit Maize FC Club Soccer website">
                 <div class="project-card">
-                    <img src="images/maize.jpg" alt="Maize FC Website">
+                    <img src="images/maize.jpg" alt="Maize FC Men's Club Soccer Website at University of Michigan">
                     <div class="card-overlay"></div>
                 </div>
                 <p class="proj-title">Maize FC</p>
@@ -66,9 +83,9 @@
             </a>
     
             <!--VCAT9-->
-            <a href="https://aaronhsu7.github.io/VCAT9DEMO/" target="_blank" class="single">
+            <a href="https://aaronhsu7.github.io/VCAT9DEMO/" target="_blank" class="single" aria-label="View VCAT9 Veterans Charity demo website">
                 <div class="project-card">
-                    <img src="images/vcat.jpg" alt="VCAT9 Demo Website">
+                    <img src="images/vcat.jpg" alt="VCAT9 Veterans Charity Website for Michigan Branch">
                     <div class="card-overlay"></div>
                 </div>
                 <p class="proj-title">VCAT9 in Michigan</p>
@@ -78,5 +95,11 @@
         </div>
      </section>
 
+    <!-- Scroll Reveal Section -->
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <!-- Typing Animation -->
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <!-- JS Script File -->
+    <script src="script.js"></script>
 </body>
 </html>

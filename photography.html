@@ -4,11 +4,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Aaron Hsu Photography - Explore my travel photography collection featuring landscapes and cityscapes from Norway, Denmark, Germany, California, and Michigan.">
+    <meta name="keywords" content="Aaron Hsu Photography, Travel Photography, Landscape Photography, Oslo, Copenhagen, Berlin, San Francisco, Ann Arbor, Michigan">
+    <meta name="author" content="Aaron Hsu">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Aaron Hsu Photography - Travel & Landscape Collection">
+    <meta property="og:description" content="Explore my travel photography collection featuring landscapes and cityscapes from around the world.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aaronhsu7.github.io/photography.html">
+    <meta property="og:image" content="images/palace.jpeg">
+    
     <!-- Link CSS File -->
     <link rel="stylesheet" href="style.css">
     <!-- Link Box Icons -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <title>Aaron Hsu</title>
+    <title>Photography - Aaron Hsu | Travel & Landscape Collection</title>
     <!-- Header Favicon -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
@@ -23,6 +37,9 @@
             <a href="photography.html">Photography</a>
             <a href="contact.html">Contact</a>
             <a href="resume.pdf" target="_blank" class="btn">Resume</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode">
+                <i class='bx bx-moon'></i>
+            </button>
         </nav>
     </header>
 
@@ -30,42 +47,49 @@
     <section class="photos" id="photos">
        <div class="photo-items">
         <div class="photo-item">
-            <img src="images/palace.jpeg" alt="Palace in Norway" class="collage-image">
+            <img src="images/palace.jpeg" alt="Royal Palace in Oslo, Norway - Travel Photography by Aaron Hsu" class="collage-image">
             <div class="photoloc">Oslo, NO</div>
         </div>
         <div class="photo-item">
-            <img src="images/houses.jpeg" alt="Colorful houses" class="collage-image">
+            <img src="images/houses.jpeg" alt="Colorful historic houses in Copenhagen, Denmark" class="collage-image">
             <div class="photoloc">Københavnn DK</div>
         </div>
         <div class="photo-item">
-            <img src="images/goldengate.jpeg" alt="Golden Gate Bridge" class="collage-image">
+            <img src="images/goldengate.jpeg" alt="Golden Gate Bridge in San Francisco, California" class="collage-image">
             <div class="photoloc">San Francisco, CA</div>
         </div>
         <div class="photo-item">
-            <img src="images/royal.jpeg" alt="Royal Soldiers" class="collage-image">
+            <img src="images/royal.jpeg" alt="Royal Guard soldiers in Copenhagen, Denmark" class="collage-image">
             <div class="photoloc">København, DK</div>
         </div>
         <div class="photo-item">
-            <img src="images/mountains.jpeg" alt="Redwood Mountains" class="collage-image">
+            <img src="images/mountains.jpeg" alt="Mountain landscape in Redwood City, California" class="collage-image">
             <div class="photoloc">Redwood City, CA</div>
         </div>
         <div class="photo-item">
-            <img src="images/shoes.jpeg" alt="Shoes Reffen" class="collage-image">
+            <img src="images/shoes.jpeg" alt="Street art and shoes at Reffen market in Copenhagen, Denmark" class="collage-image">
             <div class="photoloc">København, DK</div>
         </div>
         <div class="photo-item">
-            <img src="images/car.jpeg" alt="Car" class="collage-image">
+            <img src="images/car.jpeg" alt="Vintage car in Copenhagen, Denmark street scene" class="collage-image">
             <div class="photoloc">København, DK</div>
         </div>
         <div class="photo-item">
-            <img src="images/building.jpeg" alt="Orange Building " class="collage-image">
+            <img src="images/building.jpeg" alt="Colorful orange building architecture in Berlin, Germany" class="collage-image">
             <div class="photoloc">Berlin, DE</div>
         </div>
         <div class="photo-item">
-            <img src="images/nickels.jpeg" alt="nickels" class="collage-image">
+            <img src="images/nickels.jpeg" alt="Local scene at Nickels Arcade in Ann Arbor, Michigan" class="collage-image">
             <div class="photoloc">Ann Arbor, MI</div>
         </div>
        </div>
     </section>
+
+    <!-- Scroll Reveal Section -->
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <!-- Typing Animation -->
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <!-- JS Script File -->
+    <script src="script.js"></script>
 </body>
 
