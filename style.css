@@ -569,6 +569,7 @@ hr{
 /*Photography Page*/
 .photos {
     padding-top: 12rem; /* Extra padding to account for fixed header */
+    /* Force deployment update */
 }
 
 .photo-items {
