@@ -1,150 +1,130 @@
-// Activate Menu Button //
-let menuBtn = document.querySelector('#menu-btn');
-let menuBar = document.querySelector('.menu-bar');
-
-menuBtn.onclick = () => {
-    menuBtn.classList.toggle('bx-x');
-    menuBar.classList.toggle('active');
-}
-
-// lets remove menu-bar on scroll //
-
-window.onscroll = () => {
-    menuBtn.classList.remove('bx-x');
-    menuBar.classList.remove('active');
-}
-
-// Scroll Reveal //
-
-ScrollReveal({
-    reset: true,
-    distance: '100px',
-    duration: 2000,
-    delay:200
-});
-
-ScrollReveal().reveal('.home-bio h1, .about-resume', {origin: 'left'});
-ScrollReveal().reveal('.home-bio p', {origin: 'right'});
-ScrollReveal().reveal('.home-bio, heading', {origin: 'top'});
-ScrollReveal().reveal('.profile-pic, .about-items, .skills-items, .projects-items, .form ', {origin: 'bottom'});
-
-// <!-- Typing Animation -->//
-
-const animText = new Typed ('.animated-text', {
-    strings: ['Student', 'Athlete', 'Leader'],
-    backSpeed: 100,
-    typeSpeed: 100,
-    backDelay: 600,
-    loop: true
-});
-
-// Theme Toggle Functionality //
-
-// Wait for DOM to be fully loaded
-document.addEventListener('DOMContentLoaded', function() {
-    const themeToggle = document.getElementById('theme-toggle');
-    
-    // Check if theme toggle exists on this page
-    if (!themeToggle) {
-        console.log('Theme toggle not found on this page');
-        return;
-    }
-    
-    const themeIcon = themeToggle.querySelector('i');
-    const body = document.body;
-    
-    if (!themeIcon) {
-        console.log('Theme icon not found');
-        return;
-    }
-
-    // Check for saved theme preference or default to 'dark'
-    let currentTheme = 'dark';
+// Theme implementation - Apply immediately
+(function() {
+    // Get saved theme (before DOM is ready)
     try {
-        currentTheme = localStorage.getItem('theme') || 'dark';
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.body.setAttribute('data-theme', 'light');
+        }
     } catch (e) {
-        console.log('localStorage not available, using default theme');
+        console.error('Error accessing localStorage:', e);
     }
+})();
 
-    // Function to apply theme
-    function applyTheme(theme) {
-        if (theme === 'light') {
-            body.setAttribute('data-theme', 'light');
-            themeIcon.className = 'bx bx-sun';
-        } else {
-            body.removeAttribute('data-theme');
-            themeIcon.className = 'bx bx-moon';
+// Wait for DOM to be loaded and set up all interactions
+document.addEventListener('DOMContentLoaded', function() {
+    // Setup menu toggle
+    const menuBtn = document.querySelector('#menu-btn');
+    const menuBar = document.querySelector('.menu-bar');
+
+    if (menuBtn && menuBar) {
+        menuBtn.onclick = () => {
+            menuBtn.classList.toggle('bx-x');
+            menuBar.classList.toggle('active');
+        }
+
+        // Remove menu-bar on scroll
+        window.onscroll = () => {
+            menuBtn.classList.remove('bx-x');
+            menuBar.classList.remove('active');
         }
     }
 
-    // Set initial theme
-    applyTheme(currentTheme);
+    // Set up theme toggle functionality
+    setupThemeToggle();
+    
+    // Set up scroll reveal animations
+    setupScrollReveal();
+    
+    // Set up typing animation
+    setupTypingAnimation();
+    
+    // Set up photography page interactions
+    setupPhotoInteractions();
+    
+    // Set up photo modal/lightbox
+    setupPhotoModal();
+});
 
-    // Theme toggle click handler
-    themeToggle.addEventListener('click', () => {
-        const isLight = body.getAttribute('data-theme') === 'light';
+// Set up theme toggle functionality
+function setupThemeToggle() {
+    const themeToggle = document.getElementById('theme-toggle');
+    if (!themeToggle) return;
+    
+    const themeIcon = themeToggle.querySelector('i');
+    if (!themeIcon) return;
+    
+    // Update icon to match current theme
+    const currentTheme = document.body.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+    themeIcon.className = currentTheme === 'light' ? 'bx bx-sun' : 'bx bx-moon';
+    
+    // Add click handler
+    themeToggle.addEventListener('click', function() {
+        const isCurrentlyLight = document.body.getAttribute('data-theme') === 'light';
+        const newTheme = isCurrentlyLight ? 'dark' : 'light';
         
-        // Add a subtle scale animation during transition
+        // Add animation
         themeIcon.style.transform = 'scale(0.8)';
         
         setTimeout(() => {
-            if (isLight) {
-                // Switch to dark mode
-                applyTheme('dark');
-                try {
-                    localStorage.setItem('theme', 'dark');
-                } catch (e) {
-                    console.log('localStorage not available');
-                }
+            // Apply theme change
+            if (newTheme === 'light') {
+                document.body.setAttribute('data-theme', 'light');
+                themeIcon.className = 'bx bx-sun';
             } else {
-                // Switch to light mode
-                applyTheme('light');
-                try {
-                    localStorage.setItem('theme', 'light');
-                } catch (e) {
-                    console.log('localStorage not available');
-                }
+                document.body.removeAttribute('data-theme');
+                themeIcon.className = 'bx bx-moon';
             }
+            
+            // Save to localStorage
+            try {
+                localStorage.setItem('theme', newTheme);
+            } catch (e) {
+                console.error('Error saving theme:', e);
+            }
+            
             themeIcon.style.transform = 'scale(1)';
         }, 150);
     });
-});
-
-// Also apply theme immediately (fallback for pages without DOMContentLoaded)
-if (document.readyState === 'loading') {
-    // Document still loading, wait for DOMContentLoaded
-} else {
-    // Document already loaded, apply theme immediately
-    applyThemeImmediate();
 }
 
-function applyThemeImmediate() {
-    const body = document.body;
-    let currentTheme = 'dark';
+// Empty functions to replace star-related code that was removed
+// Just keeping these as placeholders in case they're referenced elsewhere
+
+// Setup ScrollReveal animations
+function setupScrollReveal() {
+    if (typeof ScrollReveal !== 'function') return;
     
-    try {
-        currentTheme = localStorage.getItem('theme') || 'dark';
-    } catch (e) {
-        console.log('localStorage not available, using default theme');
-    }
-    
-    // Apply theme to body immediately
-    if (currentTheme === 'light') {
-        body.setAttribute('data-theme', 'light');
-    } else {
-        body.removeAttribute('data-theme');
-    }
+    ScrollReveal({
+        reset: true,
+        distance: '100px',
+        duration: 2000,
+        delay: 200
+    });
+
+    ScrollReveal().reveal('.home-bio h1, .about-resume', {origin: 'left'});
+    ScrollReveal().reveal('.home-bio p', {origin: 'right'});
+    ScrollReveal().reveal('.home-bio, heading', {origin: 'top'});
+    ScrollReveal().reveal('.profile-pic, .about-items, .skills-items, .projects-items, .form', {origin: 'bottom'});
 }
 
-// Photography Interactive Effects (Push Away Animation)
-document.addEventListener('DOMContentLoaded', function() {
+// Setup typing animation
+function setupTypingAnimation() {
+    if (!document.querySelector('.animated-text') || typeof Typed !== 'function') return;
+    
+    new Typed('.animated-text', {
+        strings: ['Student', 'Athlete', 'Leader'],
+        backSpeed: 100,
+        typeSpeed: 100,
+        backDelay: 600,
+        loop: true
+    });
+}
+
+// Setup photo push-away interactions
+function setupPhotoInteractions() {
     const photoItems = document.querySelectorAll('.photo-item');
-    
-    if (photoItems.length === 0) {
-        return; // Not on photography page
-    }
-    
-    console.log(`Setting up push away effects for ${photoItems.length} photos`);
+    if (photoItems.length === 0) return;
     
     // Add interaction effects to each photo item
     photoItems.forEach((item, index) => {
@@ -225,4 +205,65 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-});
+}
+
+// Set up image modal/lightbox for photography page
+function setupPhotoModal() {
+    const photoItems = document.querySelectorAll('.photo-item');
+    const modal = document.getElementById('photoModal');
+    
+    // If we're not on the photography page, exit
+    if (!photoItems.length || !modal) return;
+    
+    const modalImg = document.getElementById('modalImage');
+    const modalCaption = document.getElementById('modalCaption');
+    const modalClose = document.querySelector('.modal-close');
+    
+    // Add click handler to each photo
+    photoItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const img = item.querySelector('img');
+            const location = item.querySelector('.photoloc').textContent;
+            
+            // Show the modal
+            modal.style.display = 'block';
+            
+            // Set the image source and alt text
+            modalImg.src = img.src;
+            modalImg.alt = img.alt;
+            
+            // Set the caption
+            modalCaption.textContent = location;
+            
+            // Add animation classes after a brief delay
+            setTimeout(() => {
+                modalImg.classList.add('show');
+                modalCaption.classList.add('show');
+            }, 50);
+        });
+    });
+    
+    // Close modal when clicking the X
+    modalClose.addEventListener('click', closeModal);
+    
+    // Close modal when clicking outside the image
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    
+    // Close modal with Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.style.display === 'block') closeModal();
+    });
+    
+    // Function to close the modal with animation
+    function closeModal() {
+        modalImg.classList.remove('show');
+        modalCaption.classList.remove('show');
+        
+        // Hide the modal after animation completes
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 300);
+    }
+}

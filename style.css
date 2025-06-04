@@ -2,19 +2,52 @@
 /* Let's Import Google fonts */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
+/* Define subtle ambient glow animations */
+@keyframes ambientGlow {
+    0% { box-shadow: 0 0 10px rgba(0, 255, 255, 0); }
+    50% { box-shadow: 0 0 15px rgba(0, 255, 255, 0.1); }
+    100% { box-shadow: 0 0 10px rgba(0, 255, 255, 0); }
+}
+
+/* Floating animation for background elements */
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+/* Subtle rotation animation */
+@keyframes slowRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
 /* CSS Variables for Theme */
 :root {
+    /* Dark mode colors - more vibrant with modern design patterns */
     --bg-color: #0B141E;
+    --bg-gradient: linear-gradient(135deg, #0B141E 0%, #152642 50%, #0B1D32 100%);
+    --bg-pattern: 
+        /* Subtle geometric pattern */
+        radial-gradient(circle at 0% 0%, rgba(29, 78, 216, 0.15) 0%, transparent 25%),
+        radial-gradient(circle at 100% 0%, rgba(14, 165, 233, 0.1) 0%, transparent 30%),
+        radial-gradient(circle at 100% 100%, rgba(79, 70, 229, 0.15) 0%, transparent 25%),
+        radial-gradient(circle at 0% 100%, rgba(56, 189, 248, 0.1) 0%, transparent 30%),
+        /* Diagonal lines */
+        repeating-linear-gradient(45deg, rgba(30, 64, 175, 0.03) 0px, rgba(30, 64, 175, 0.03) 1px, transparent 1px, transparent 15px),
+        repeating-linear-gradient(135deg, rgba(30, 58, 138, 0.03) 0px, rgba(30, 58, 138, 0.03) 1px, transparent 1px, transparent 15px);
     --text-color: #fff;
-    --header-bg: rgba(120, 120, 120, 0.25);
+    --header-bg: rgba(30, 60, 90, 0.35);
     --accent-color: aqua;
     --btn-bg: aqua;
     --btn-text: #000;
-    --border-color: #fff;
+    --border-color: rgba(255, 255, 255, 0.4);
 }
 
 [data-theme="light"] {
     --bg-color: #f5f5f5;
+    --bg-gradient: linear-gradient(135deg, #f5f5f5 0%, #ffffff 50%, #f0f0f0 100%);
+    --bg-pattern: none;
     --text-color: #333;
     --header-bg: rgba(255, 255, 255, 0.9);
     --accent-color: #007acc;
@@ -45,8 +78,35 @@ html{
 
 body{
     background: var(--bg-color);
+    background-image: var(--bg-gradient), var(--bg-pattern);
+    background-attachment: fixed;
     color: var(--text-color);
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, background-image 0.5s ease;
+    position: relative;
+    min-height: 100vh;
+    overflow-x: hidden; /* Ensure geometric accents don't cause horizontal scrolling */
+}
+
+/* Add additional decorative elements for dark mode */
+:root:not([data-theme="light"]) body {
+    /* Enhanced backdrop for dark mode */
+    position: relative;
+}
+
+/* Floating shape in top-right */
+:root:not([data-theme="light"]) .header::after {
+    content: "";
+    position: fixed;
+    top: 15vh;
+    right: 10vw;
+    width: 150px;
+    height: 150px;
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    pointer-events: none;
+    opacity: 0.2;
+    animation: slowRotate 30s linear infinite, float 15s ease-in-out infinite;
+    z-index: -2;
 }
 /* Header Section */
 .header{
@@ -677,5 +737,161 @@ hr{
     .photo-item:hover {
         transform: scale(1.02);
     }
+}
+
+/* Geometric accents for dark mode */
+:root:not([data-theme="light"]) body::before,
+:root:not([data-theme="light"]) body::after {
+    content: "";
+    position: fixed;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Top-right accent */
+:root:not([data-theme="light"]) body::before {
+    top: -15vw;
+    right: -15vw;
+    width: 30vw;
+    height: 30vw;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.1) 0%, rgba(59, 130, 246, 0.05) 45%, transparent 70%);
+}
+
+/* Bottom-left accent */
+:root:not([data-theme="light"]) body::after {
+    bottom: -20vw;
+    left: -20vw;
+    width: 40vw;
+    height: 40vw;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(79, 70, 229, 0.1) 0%, rgba(124, 58, 237, 0.05) 45%, transparent 70%);
+}
+
+/* Add subtle floating grid lines to dark mode */
+:root:not([data-theme="light"]) .header::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    opacity: 0.07;
+    background-image: 
+        linear-gradient(to right, rgba(99, 102, 241, 0.3) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(99, 102, 241, 0.2) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+/* Image Modal/Lightbox */
+/* Modal container - hidden by default */
+.photo-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+
+/* Modal content - the large image */
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 85vh;
+    transform: scale(0.95);
+    opacity: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.95);
+}
+
+/* Animation when modal appears */
+.modal-content.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Close button */
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 40px;
+    color: var(--text-color);
+    cursor: pointer;
+    opacity: 0.7;
+    transition: all 0.2s ease;
+    z-index: 1001;
+}
+
+.modal-close:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* Caption text */
+.modal-caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    padding: 10px 0;
+    color: var(--text-color);
+    font-size: 16px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.modal-caption.show {
+    opacity: 1;
+}
+
+/* Make photo items clickable with visual indicator */
+.photo-item {
+    cursor: pointer;
+}
+
+.photo-item img {
+    transition: filter 0.2s ease;
+}
+
+.photo-item:hover img {
+    filter: brightness(1.1);
+}
+
+/* Add a subtle zoom icon indicator on hover */
+.photo-item::after {
+    content: '\eb19'; /* Boxicon zoom icon */
+    font-family: 'boxicons' !important;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 5px;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.photo-item:hover::after {
+    opacity: 0.8;
 }
 
