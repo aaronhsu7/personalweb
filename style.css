@@ -22,6 +22,7 @@
     to { transform: rotate(360deg); }
 }
 
+
 /* CSS Variables for Theme */
 :root {
     /* Dark mode colors - more vibrant with modern design patterns */
@@ -93,6 +94,10 @@ body{
     position: relative;
 }
 
+
+
+
+
 /* Floating shape in top-right */
 :root:not([data-theme="light"]) .header::after {
     content: "";
@@ -147,7 +152,7 @@ body{
 }
 
 .theme-toggle{
-    background: transparent;
+    background: non;
     border: none;
     font-size: 1.8rem;
     color: var(--text-color);
@@ -182,7 +187,7 @@ body{
 }
 
 section{
-    padding: 10rem 10%;
+    padding: 10rem 5%;
     min-height: 100vh;
 }
 
@@ -282,9 +287,46 @@ span{
 }
 
 .heading{
-    font-size: 3.3rem;
+    font-size: 3.5rem;
     text-align: center;
-    margin: 4rem 0;
+    margin: 4rem 0 2rem;
+    position: relative;
+}
+
+.heading h2 {
+    display: inline-block;
+    position: relative;
+}
+
+.heading h2::before {
+    content: "";
+    position: absolute;
+    width: 50%;
+    height: 4px;
+    bottom: -10px;
+    left: 25%;
+    background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+    border-radius: 50%;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+.heading h2::after {
+    content: "";
+    position: absolute;
+    width: 70%;
+    height: 1px;
+    bottom: -15px;
+    left: 15%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.3), transparent);
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 5px rgba(0, 255, 255, 0.2);
+    }
+    to {
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+    }
 }
 
 .about-items{
@@ -379,6 +421,9 @@ span{
     width: 100%;
     border-radius: 10px;
     overflow: hidden;
+    transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
+    transform-origin: center center;
+    will-change: transform; /* Optimize for animations */
 }
 
 .project-card img {
@@ -386,6 +431,17 @@ span{
     width: 100%;
     object-fit: cover;
     object-position: center;
+    transition: transform 0.4s ease;
+    background-color: transparent;
+}
+
+/* Specific styling for chickenDinner image */
+.project-card img[src*="chickenDinner"] {
+    background-color: white;
+}
+
+.single:hover .project-card img {
+    transform: scale(1.08);
 }
 
 /*.card-overlay {
@@ -576,8 +632,50 @@ hr{
 }
 
 .project-intro {
-    margin-top: 20px;
-    font-size: 20px;
+    margin: 30px auto 40px;
+    max-width: 700px;
+    position: relative;
+    background: none;
+    padding: 20px 30px;
+    border-radius: 15px;
+    box-shadow: none;
+}
+
+/* Dark mode specific styles for project intro */
+:root:not([data-theme="light"]) .project-intro {
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.project-intro p {
+    font-size: 18px;
+    line-height: 1.7;
+    font-weight: 300;
+    letter-spacing: 0.3px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.project-intro::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: linear-gradient(to bottom, transparent, var(--accent-color), transparent);
+}
+
+.project-intro::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: linear-gradient(to bottom, transparent, var(--accent-color), transparent);
 }
 
 .home-bio {
@@ -605,30 +703,73 @@ hr{
 }
 
 .proj-title {
-    font-weight: bold;
+    font-weight: 600;
     margin-top: 25px;
-    font-size:20px;
-    margin-bottom: 10px;
+    font-size: 22px;
+    margin-bottom: 12px;
+    position: relative;
+    display: inline-block;
+    color: var(--text-color);
+    padding: 2px 0;
+    background: linear-gradient(to right, var(--accent-color), transparent);
+    background-size: 200% 2px;
+    background-repeat: no-repeat;
+    background-position: left 0 bottom 0;
+    transition: all 0.3s ease;
+}
+
+.single:hover .proj-title {
+    transform: translateX(5px);
+    background-position: right 0 bottom 0;
+    letter-spacing: 0.5px;
 }
 
 .proj-desc {
     font-size: 15px;
     margin-bottom: 20px;
+    line-height: 1.6;
+    position: relative;
+    padding-left: 12px;
+    border-left: 2px solid rgba(0, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    opacity: 0.85;
+}
+
+.single:hover .proj-desc {
+    opacity: 1;
+    padding-left: 15px;
+    border-left: 3px solid var(--accent-color);
 }
 
 .single {
     border: 25px solid transparent;
-    transition: border-color 0.3s ease;
+    transition: all 0.3s ease;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .single:hover {
     background-color: #11263e;
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.single:hover .project-card {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Change text color to white on hover in light mode */
+[data-theme="light"] .single:hover .proj-title,
+[data-theme="light"] .single:hover .proj-desc {
+    color: #fff;
 }
 
 /*Photography Page*/
 .photos {
     padding-top: 12rem; /* Extra padding to account for fixed header */
+    padding-left: 3%;
+    padding-right: 3%;
     /* Force deployment update */
 }
 
