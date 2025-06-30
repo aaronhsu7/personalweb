@@ -1,6 +1,62 @@
 /* CSS Reset */
 /* Let's Import Google fonts */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* Define subtle ambient glow animations */
+@keyframes ambientGlow {
+    0% { box-shadow: 0 0 10px rgba(0, 255, 255, 0); }
+    50% { box-shadow: 0 0 15px rgba(0, 255, 255, 0.1); }
+    100% { box-shadow: 0 0 10px rgba(0, 255, 255, 0); }
+}
+
+/* Floating animation for background elements */
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+/* Subtle rotation animation */
+@keyframes slowRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+
+/* CSS Variables for Theme */
+:root {
+    /* Dark mode colors - more vibrant with modern design patterns */
+    --bg-color: #0B141E;
+    --bg-gradient: linear-gradient(135deg, #0B141E 0%, #152642 50%, #0B1D32 100%);
+    --bg-pattern: 
+        /* Subtle geometric pattern */
+        radial-gradient(circle at 0% 0%, rgba(29, 78, 216, 0.15) 0%, transparent 25%),
+        radial-gradient(circle at 100% 0%, rgba(14, 165, 233, 0.1) 0%, transparent 30%),
+        radial-gradient(circle at 100% 100%, rgba(79, 70, 229, 0.15) 0%, transparent 25%),
+        radial-gradient(circle at 0% 100%, rgba(56, 189, 248, 0.1) 0%, transparent 30%),
+        /* Diagonal lines */
+        repeating-linear-gradient(45deg, rgba(30, 64, 175, 0.03) 0px, rgba(30, 64, 175, 0.03) 1px, transparent 1px, transparent 15px),
+        repeating-linear-gradient(135deg, rgba(30, 58, 138, 0.03) 0px, rgba(30, 58, 138, 0.03) 1px, transparent 1px, transparent 15px);
+    --text-color: #fff;
+    --header-bg: rgba(30, 60, 90, 0.35);
+    --accent-color: aqua;
+    --btn-bg: aqua;
+    --btn-text: #000;
+    --border-color: rgba(255, 255, 255, 0.4);
+}
+
+[data-theme="light"] {
+    --bg-color: #f5f5f5;
+    --bg-gradient: linear-gradient(135deg, #f5f5f5 0%, #ffffff 50%, #f0f0f0 100%);
+    --bg-pattern: none;
+    --text-color: #333;
+    --header-bg: rgba(255, 255, 255, 0.9);
+    --accent-color: #007acc;
+    --btn-bg: #007acc;
+    --btn-text: #fff;
+    --border-color: #ddd;
+}
+
 *{
     font-family: 'Poppins', sans-serif;
     margin: 0;
@@ -13,7 +69,7 @@
 }
 
 a{
-    color: #fff;
+    color: var(--text-color);
 }
 
 html{
@@ -22,12 +78,44 @@ html{
 }
 
 body{
-    background: #0B141E;
-    color: #fff;
+    background: var(--bg-color);
+    background-image: var(--bg-gradient), var(--bg-pattern);
+    background-attachment: fixed;
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease, background-image 0.5s ease;
+    position: relative;
+    min-height: 100vh;
+    overflow-x: hidden; /* Ensure geometric accents don't cause horizontal scrolling */
+}
+
+/* Add additional decorative elements for dark mode */
+:root:not([data-theme="light"]) body {
+    /* Enhanced backdrop for dark mode */
+    position: relative;
+}
+
+
+
+
+
+/* Floating shape in top-right */
+:root:not([data-theme="light"]) .header::after {
+    content: "";
+    position: fixed;
+    top: 15vh;
+    right: 10vw;
+    width: 150px;
+    height: 150px;
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    pointer-events: none;
+    opacity: 0.2;
+    animation: slowRotate 30s linear infinite, float 15s ease-in-out infinite;
+    z-index: -2;
 }
 /* Header Section */
 .header{
-    background: rgba(120, 120, 120, 0.25);
+    background: var(--header-bg);
     position: fixed;
     top: 0;
     left: 0;
@@ -37,23 +125,60 @@ body{
     justify-content: space-between;
     align-items: center;
     z-index: 1;
-    border: 1px solid #fff;
+    border: 1px solid var(--border-color);
+    backdrop-filter: blur(10px);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .logo{
     font-size: 2.2rem;
     font-weight: 600;
-    color: white;
+    color: var(--text-color);
+}
+
+.menu-bar{
+    display: flex;
+    align-items: center;
+    gap: 3.5rem;
 }
 
 .menu-bar a{
     font-size: 1.5rem;
-    margin-left: 3.5rem;
     transition: 0.4s ease;
 }
 
 .menu-bar a:hover{
-    color: aqua;
+    color: var(--accent-color);
+}
+
+.theme-toggle{
+    background: non;
+    border: none;
+    font-size: 1.8rem;
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 0.8rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+    width: 4rem;
+    height: 4rem;
+    margin-left: 1rem;
+}
+
+.theme-toggle:hover{
+    color: var(--accent-color);
+    opacity: 1;
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.theme-toggle i {
+    transition: all 0.3s ease;
+    font-size: 1.8rem;
 }
 
 #menu-btn{
@@ -62,7 +187,7 @@ body{
 }
 
 section{
-    padding: 10rem 10%;
+    padding: 10rem 5%;
     min-height: 100vh;
 }
 
@@ -78,7 +203,7 @@ section{
 }
 
 span{
-    color: aqua;
+    color: var(--accent-color);
 }
 
 .home-bio h1{
@@ -123,26 +248,26 @@ span{
 }
 
 .social-media a:hover{
-    color: aqua;
-    box-shadow: 0 0 1rem aqua;
+    color: var(--accent-color);
+    box-shadow: 0 0 1rem var(--accent-color);
 }
 
 .btn{
     display: inline-block;
-    background: aqua;
+    background: var(--btn-bg);
     margin: 2rem 0;
     padding: 1rem 2.5rem;
     border-radius: 1.3rem;
     font-size: 1.3rem;
-    color: #000;
+    color: var(--btn-text);
     font-weight: 600;
     transition: 0.5s ease;
 }
 
 .btn:hover{
-    color: aqua;
-    background: #000;
-    box-shadow: 0 0 1rem aqua;
+    color: var(--accent-color);
+    background: var(--bg-color);
+    box-shadow: 0 0 1rem var(--accent-color);
 }
 
 .home {
@@ -162,9 +287,46 @@ span{
 }
 
 .heading{
-    font-size: 3.3rem;
+    font-size: 3.5rem;
     text-align: center;
-    margin: 4rem 0;
+    margin: 4rem 0 2rem;
+    position: relative;
+}
+
+.heading h2 {
+    display: inline-block;
+    position: relative;
+}
+
+.heading h2::before {
+    content: "";
+    position: absolute;
+    width: 50%;
+    height: 4px;
+    bottom: -10px;
+    left: 25%;
+    background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+    border-radius: 50%;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+.heading h2::after {
+    content: "";
+    position: absolute;
+    width: 70%;
+    height: 1px;
+    bottom: -15px;
+    left: 15%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.3), transparent);
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 5px rgba(0, 255, 255, 0.2);
+    }
+    to {
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+    }
 }
 
 .about-items{
@@ -225,7 +387,7 @@ span{
 }
 
 .skill-card .bx:hover{
-    color: aqua;
+    color: var(--accent-color);
 }
 
 .skill-card h3{
@@ -259,6 +421,9 @@ span{
     width: 100%;
     border-radius: 10px;
     overflow: hidden;
+    transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
+    transform-origin: center center;
+    will-change: transform; /* Optimize for animations */
 }
 
 .project-card img {
@@ -266,6 +431,17 @@ span{
     width: 100%;
     object-fit: cover;
     object-position: center;
+    transition: transform 0.4s ease;
+    background-color: transparent;
+}
+
+/* Specific styling for chickenDinner image */
+.project-card img[src*="chickenDinner"] {
+    background-color: white;
+}
+
+.single:hover .project-card img {
+    transform: scale(1.08);
 }
 
 /*.card-overlay {
@@ -354,7 +530,7 @@ textarea{
 
 hr{
     margin: 1rem;
-    border-bottom: thin solid #fff;
+    border-bottom: thin solid var(--border-color);
 }
 
 /* Responsive Section */
@@ -382,16 +558,30 @@ hr{
         position: absolute;
         left: 0;
         top: 100%;
-        background: rgba(0, 0, 0, 0.9);
-        display: none;    
+        background: var(--header-bg);
+        backdrop-filter: blur(20px);
+        display: none;
+        flex-direction: column;
+        padding: 2rem 0;
     }
     .menu-bar.active{
-        display: block;
+        display: flex;
     }
     .menu-bar a{
         display: block;
-        margin: 2rem;
+        margin: 1rem 2rem;
         font-size: 2rem;
+    }
+    .theme-toggle{
+        margin: 1rem 2rem;
+        align-self: flex-start;
+        width: 3.5rem;
+        height: 3.5rem;
+        font-size: 1.6rem;
+    }
+    
+    .theme-toggle i {
+        font-size: 1.6rem;
     }
     .home, .about-items{
         flex-direction: column;
@@ -442,8 +632,50 @@ hr{
 }
 
 .project-intro {
-    margin-top: 20px;
-    font-size: 20px;
+    margin: 30px auto 40px;
+    max-width: 700px;
+    position: relative;
+    background: none;
+    padding: 20px 30px;
+    border-radius: 15px;
+    box-shadow: none;
+}
+
+/* Dark mode specific styles for project intro */
+:root:not([data-theme="light"]) .project-intro {
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.project-intro p {
+    font-size: 18px;
+    line-height: 1.7;
+    font-weight: 300;
+    letter-spacing: 0.3px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.project-intro::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: linear-gradient(to bottom, transparent, var(--accent-color), transparent);
+}
+
+.project-intro::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: linear-gradient(to bottom, transparent, var(--accent-color), transparent);
 }
 
 .home-bio {
@@ -471,40 +703,101 @@ hr{
 }
 
 .proj-title {
-    font-weight: bold;
+    font-weight: 600;
     margin-top: 25px;
-    font-size:20px;
-    margin-bottom: 10px;
+    font-size: 22px;
+    margin-bottom: 12px;
+    position: relative;
+    display: inline-block;
+    color: var(--text-color);
+    padding: 2px 0;
+    background: linear-gradient(to right, var(--accent-color), transparent);
+    background-size: 200% 2px;
+    background-repeat: no-repeat;
+    background-position: left 0 bottom 0;
+    transition: all 0.3s ease;
+}
+
+.single:hover .proj-title {
+    transform: translateX(5px);
+    background-position: right 0 bottom 0;
+    letter-spacing: 0.5px;
 }
 
 .proj-desc {
     font-size: 15px;
     margin-bottom: 20px;
+    line-height: 1.6;
+    position: relative;
+    padding-left: 12px;
+    border-left: 2px solid rgba(0, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    opacity: 0.85;
+}
+
+.single:hover .proj-desc {
+    opacity: 1;
+    padding-left: 15px;
+    border-left: 3px solid var(--accent-color);
 }
 
 .single {
     border: 25px solid transparent;
-    transition: border-color 0.3s ease;
+    transition: all 0.3s ease;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .single:hover {
     background-color: #11263e;
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.single:hover .project-card {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Change text color to white on hover in light mode */
+[data-theme="light"] .single:hover .proj-title,
+[data-theme="light"] .single:hover .proj-desc {
+    color: #fff;
 }
 
 /*Photography Page*/
+.photos {
+    padding-top: 12rem; /* Extra padding to account for fixed header */
+    padding-left: 3%;
+    padding-right: 3%;
+    /* Force deployment update */
+}
+
 .photo-items {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px; /* Adjust the gap as needed */
+    gap: 20px;
     justify-content: space-between;
+    padding: 20px 0;
 }
 
 .photo-item {
     position: relative;
-    flex: 1 1 calc(33.333% - 10px); /* Three images per row with a gap */
-    max-width: calc(33.333% - 10px); /* Ensure the containers don't exceed their flex-basis */
+    flex: 1 1 calc(33.333% - 20px);
+    max-width: calc(33.333% - 20px);
     box-sizing: border-box;
+    transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
+    transform-origin: center center;
+    border-radius: 8px;
+    overflow: hidden;
+    will-change: transform; /* Optimize for animations */
+}
+
+/* Hover effect for the main image being hovered */
+.photo-item:hover {
+    transform: scale(1.05) translateY(-3px) !important;
+    z-index: 10;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 .collage-image {
@@ -513,35 +806,233 @@ hr{
     display: block;
 }
 
-/* Create the overlay effect */
-.photo-item::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-}
-
+/* Location label styling */
 .photoloc {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(255, 255, 255, 0.7); /* Transparent white */
-    color: black;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2));
+    color: white;
     text-align: center;
     opacity: 0;
-    transition: opacity 0.25s ease;
-    padding: 10px;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    padding: 12px;
     font-size: 16px;
     font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    transform: translateY(10px);
 }
 
 .photo-item:hover .photoloc {
     opacity: 1;
+    transform: translateY(0px);
+}
+
+/* Push away effects for better performance */
+.photo-item.push-left {
+    transform: translateX(-15px) scale(0.96) !important;
+}
+
+.photo-item.push-right {
+    transform: translateX(15px) scale(0.96) !important;
+}
+
+.photo-item.push-up {
+    transform: translateY(-10px) scale(0.96) !important;
+}
+
+.photo-item.push-down {
+    transform: translateY(10px) scale(0.96) !important;
+}
+
+/* Responsive design for mobile */
+@media (max-width: 768px) {
+    .photo-items {
+        gap: 15px;
+    }
+    
+    .photo-item {
+        flex: 1 1 calc(50% - 15px);
+        max-width: calc(50% - 15px);
+    }
+    
+    /* Simplified mobile interactions */
+    .photo-item:hover {
+        transform: scale(1.05);
+    }
+}
+
+@media (max-width: 480px) {
+    .photo-items {
+        gap: 10px;
+    }
+    
+    .photo-item {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+    
+    /* Minimal mobile hover effects */
+    .photo-item:hover {
+        transform: scale(1.02);
+    }
+}
+
+/* Geometric accents for dark mode */
+:root:not([data-theme="light"]) body::before,
+:root:not([data-theme="light"]) body::after {
+    content: "";
+    position: fixed;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Top-right accent */
+:root:not([data-theme="light"]) body::before {
+    top: -15vw;
+    right: -15vw;
+    width: 30vw;
+    height: 30vw;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.1) 0%, rgba(59, 130, 246, 0.05) 45%, transparent 70%);
+}
+
+/* Bottom-left accent */
+:root:not([data-theme="light"]) body::after {
+    bottom: -20vw;
+    left: -20vw;
+    width: 40vw;
+    height: 40vw;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(79, 70, 229, 0.1) 0%, rgba(124, 58, 237, 0.05) 45%, transparent 70%);
+}
+
+/* Add subtle floating grid lines to dark mode */
+:root:not([data-theme="light"]) .header::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    opacity: 0.07;
+    background-image: 
+        linear-gradient(to right, rgba(99, 102, 241, 0.3) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(99, 102, 241, 0.2) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+/* Image Modal/Lightbox */
+/* Modal container - hidden by default */
+.photo-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+
+/* Modal content - the large image */
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 85vh;
+    transform: scale(0.95);
+    opacity: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.95);
+}
+
+/* Animation when modal appears */
+.modal-content.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Close button */
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 40px;
+    color: var(--text-color);
+    cursor: pointer;
+    opacity: 0.7;
+    transition: all 0.2s ease;
+    z-index: 1001;
+}
+
+.modal-close:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* Caption text */
+.modal-caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    padding: 10px 0;
+    color: var(--text-color);
+    font-size: 16px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.modal-caption.show {
+    opacity: 1;
+}
+
+/* Make photo items clickable with visual indicator */
+.photo-item {
+    cursor: pointer;
+}
+
+.photo-item img {
+    transition: filter 0.2s ease;
+}
+
+.photo-item:hover img {
+    filter: brightness(1.1);
+}
+
+/* Add a subtle zoom icon indicator on hover */
+.photo-item::after {
+    content: '\eb19'; /* Boxicon zoom icon */
+    font-family: 'boxicons' !important;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 5px;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.photo-item:hover::after {
+    opacity: 0.8;
 }
 
